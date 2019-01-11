@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.mensageria</groupId>
+        <artifactId>mensageria</artifactId>
+        <version>1.0.00</version>
+    </parent>
+	    
+    <packaging>war</packaging>
+    
+    <artifactId>mensageria-api</artifactId>
+	
+	<name>Mensageria - API</name>
+    
+    <properties>
+        <local.http.port>10004</local.http.port>       
+    </properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.ebaysf.web</groupId>
+			<artifactId>cors-filter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+
+		<!-- Swarm dependencies -->
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>bom-all</artifactId>
+            <version>${version.wildfly.swarm}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>jaxrs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>cdi</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>messaging</artifactId>
+        </dependency>
+        
+        <!-- ActiveMQ dependencies -->
+        <dependency>
+		    <groupId>org.apache.activemq</groupId>
+		    <artifactId>activemq-client</artifactId>
+		</dependency>
+		
+		<!-- Kafka dependencies -->
+		<dependency>
+		    <groupId>org.apache.kafka</groupId>
+		    <artifactId>kafka_2.12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aerogear.kafka</groupId>
+			<artifactId>kafka-cdi-extension</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>messageria-api</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.swarm</groupId>
+				<artifactId>wildfly-swarm-plugin</artifactId>
+				<version>${version.wildfly.swarm}</version>
+				<configuration>
+					<properties>
+                        <swarm.http.port>${local.http.port}</swarm.http.port>
+                    </properties>
+					<mainClass>com.mensageria.Main</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

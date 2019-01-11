@@ -1,0 +1,9 @@
+.settings
+/.project
+/mensageria-api/.classpath
+/mensageria-api/.project
+/mensageria-api/audit.log
+target
+/mensageria-mdb/audit.log
+/mensageria-mdb/.classpath
+/mensageria-mdb/.project
