@@ -26,22 +26,18 @@ O tópico topic-kafka-v1 será utilizado no teste de mensagem JMS consumida dire
 O tópico topic-kafka-v2 será utilizado no teste de mensagem consumida mais de uma vez conforme é requisitada.
 
 
-Rodando os projetos:
+Rodando o projeto:
 
 Executar o run.bat dos projetos mensageria-api e mensageria-mdb
 
 
-Enviando mensagens:
+Enviando e consumindo mensagens:
 
-Para o topic-kafka-v1, efetuar um get para localhost:10004/api/kafka/v1/send, essa mensagem será consumida pelo mensageria-mdb assim que o disponibilizada pelo broker.
+Acessar o endereço localhost:10004, em seguida:
 
-Para o topic-kafka-v2, efetuar um get para localhost:10004/api/kafka/v2/send.
+Para o topic-kafka-v1, informar uma mensagem no campo Kafka V1 e clicar em Enviar. Esta mensagem será consumida e retornada para a tela via websocket assim que o disponibilizada pelo broker.
 
-
-Consumindo mensagens:
-
-Para o topic-kafka-v2, efetuar um get para localhost:10004/api/kafka/v2/consume. Esta mensagem pode ser consumida mais de uma vez.
-
+Para o topic-kafka-v2, informar uma mensagem no campo Kafka V2 e clicar em Enviar. Esta mensagem será consumida no momento em que o botão Receber for pressionado. Neste cenário, a mesma mensagem pode ser consumida várias vezes.
 
 
 
@@ -58,11 +54,11 @@ Iniciar o ActiveMQ:
 [Diretório do ActiveMQ]/bin/activemq start
 
 
-Rodando os projetos:
+Rodando o projeto:
 
-Executar o run.bat dos projetos mensageria-api e mensageria-mdb
+Executar o run.bat do projeto mensageria-api
 
 
 Enviando e consumindo mensagens:
 
-Efetuar um get para localhost:10004/api/activemq/send, essa mensagem será consumida pelo mensageria-mdb assim que o disponibilizada pelo broker.
+Acessar o endereço localhost:10004, informar uma mensagem no campo ActiveMQ e clicar em Enviar. Esta mensagem será consumida e retornada para a tela via websocket assim que o disponibilizada pelo broker.
