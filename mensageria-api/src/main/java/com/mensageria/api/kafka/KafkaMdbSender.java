@@ -19,11 +19,11 @@ public class KafkaMdbSender {
     @Producer
     private SimpleKafkaProducer<String, String> producer;
 
-    public void send() {
-        final String mensagem = DateTimeUtil.format(LocalDateTime.now());
+    public void send(final String mensagem) {
+        final String message = mensagem + " - " + DateTimeUtil.format(LocalDateTime.now());
 
-        producer.send(TOPIC, mensagem);
+        producer.send(TOPIC, message);
 
-        System.out.println(String.format("##### Mensagem enviada para o MDB do Kafka: %s #####", mensagem));
+        System.out.println(String.format("##### Mensagem enviada para o MDB do Kafka: %s #####", message));
     }
 }

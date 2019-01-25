@@ -1,6 +1,7 @@
 package com.mensageria.api.kafka.consumer;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -12,22 +13,27 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import com.mensageria.util.DateTimeUtil;
+
 @Stateless
 public class KafkaConsumer {
 
     private static final String TOPIC = "topic-kafka-v2";
 
-    public void consume() {
+    public String consume() {
+        String mensagem = "";
         final Consumer<String, String> consumer = createConsumer();
         try {
             final ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(10000));
 
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println(String.format("##### Mensagem consumida no Kafka: %s #####", record.value()));
+                mensagem = record.value();
             }
         } finally {
             consumer.close();
         }
+        return "Mensagem consumida às " + DateTimeUtil.format(LocalDateTime.now()) + ": " + mensagem;
     }
 
     private Consumer<String, String> createConsumer() {
@@ -37,7 +43,7 @@ public class KafkaConsumer {
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
+        //properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
         final Consumer<String, String> consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(properties);

@@ -6,7 +6,7 @@
     moment.locale('pt-br');
 
     module.config(['RestangularProvider', function(RestangularProvider) {
-            RestangularProvider.setBaseUrl('http://localhost:8080/api/');
+            RestangularProvider.setBaseUrl('http://localhost:10004/api/');
         }
     ]);
 })();

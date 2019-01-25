@@ -18,14 +18,14 @@ public class KafkaSender {
 
     private static final String TOPIC = "topic-kafka-v2";
 
-    public void send() {
-        final String mensagem = DateTimeUtil.format(LocalDateTime.now());
+    public void send(final String mensagem) {
+        final String message = mensagem + " - " + DateTimeUtil.format(LocalDateTime.now());
 
         final Producer<String, String> producer = createProducer();
         try {
-            producer.send(new ProducerRecord<String, String>(TOPIC, DateTimeUtil.format(LocalDateTime.now())));
+            producer.send(new ProducerRecord<String, String>(TOPIC, message));
 
-            System.out.println(String.format("##### Mensagem enviada para o Kafka: %s #####", mensagem));
+            System.out.println(String.format("##### Mensagem enviada para o Kafka: %s #####", message));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

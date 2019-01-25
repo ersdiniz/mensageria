@@ -8,16 +8,16 @@
     function FormCtrl($injector) {
         var vm = this;
 
+        var wsActiveMQ,
+            wsKafka;
+
         var FormService = $injector.get('FormService');
 
-        vm.tiposVeiculos = [];
-        vm.pesos = [];
-
         var propriedadesPublicas = {
-            calcular: _calcular,
-            isFormValid: _isFormValid,
-            gerarObservacoes: _gerarObservacoes,
-            limpar: _limpar
+            sendToActiveMQ: _sendToActiveMQ,
+            sendToKafkaV1: _sendToKafkaV1,
+            sendToKafkaV2: _sendToKafkaV2,
+            getFromKafkaV2: _getFromKafkaV2
         };
 
         _.extend(vm, propriedadesPublicas);
@@ -25,51 +25,37 @@
         init();
 
         function init() {
-            initTiposVeiculos();
-            initPesos();
+            wsActiveMQ = FormService.getWebSocket("activemq");
+            wsKafka = FormService.getWebSocket("kafka");
 
-            function initTiposVeiculos() {
-                FormService.getTiposVeiculos().then(function(response) {
-                    vm.tiposVeiculos = response;
-                });
-            }
-
-            function initPesos() {
-                for (var i = 1; i <= 50; i++) {
-                    vm.pesos.push(i);
-                }
-            }
+            wsActiveMQ.onmessage = onMessageActiveMQ;
+            wsKafka.onmessage = onMessageKafka;
         }
 
-        function _calcular(params) {
-            params.percursoPavimentado = params.percursoPavimentado || 0.0;
-            params.percursoNaoPavimentado = params.percursoNaoPavimentado || 0.0;
+        function onMessageActiveMQ(response) {
+            document.getElementById('activemqResposta').innerHTML = response.data;
+        }
 
-            return FormService.getCusto(params).then(function(response) {
-                vm.custoTotal = response;
+        function onMessageKafka(response) {
+            document.getElementById('kafkaV1Resposta').innerHTML = response.data;
+        }
+
+        function _sendToActiveMQ(param) {
+            wsActiveMQ.send(param.message);
+        }
+
+        function _sendToKafkaV1(param) {
+            wsKafka.send(param.message);
+        }
+
+        function _sendToKafkaV2(param) {
+            return FormService.sendToKafka({ mensagem: param.message });
+        }
+
+        function _getFromKafkaV2() {
+            return FormService.getFromKafka().then(function(response) {
+                vm.kafkaV2Resposta = response.mensagem;
             });
-        }
-
-        function _gerarObservacoes() {
-            return FormService.gerarObservacoes().then(function(response) {
-                vm.notasMultiplasComValor = response.notasMultiplasComValor;
-                vm.notasMultiplasSemValor = response.notasMultiplasSemValor;
-                vm.notaUnicaComValor = response.notaUnicaComValor;
-                vm.notaUnicaSemValor = response.notaUnicaSemValor;
-            });
-        }
-
-        function _isFormValid() {
-            return Boolean(vm.custo && vm.custo.tipoVeiculo && vm.custo.peso && (vm.custo.percursoPavimentado || vm.custo.percursoNaoPavimentado) && (vm.custo.percursoPavimentado > 0 || vm.custo.percursoNaoPavimentado > 0));
-        }
-
-        function _limpar() {
-            if (!vm.custo) return;
-            vm.custo.percursoPavimentado = undefined;
-            vm.custo.percursoNaoPavimentado = undefined;
-            vm.custo.tipoVeiculo = undefined;
-            vm.custo.peso = undefined;
-            vm.custoTotal = undefined;
         }
     };
 })();

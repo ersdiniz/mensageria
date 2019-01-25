@@ -28,6 +28,10 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.jboss.ejb3</groupId>
+		    <artifactId>jboss-ejb3-ext-api</artifactId>
+		</dependency>
 
 		<!-- Swarm dependencies -->
         <dependency>
@@ -47,12 +51,57 @@
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>messaging</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>undertow</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>msc</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>jca</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>management</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>management-console</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>cli</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>ejb</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>connector</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>remoting</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>resource-adapters</artifactId>
+		</dependency>
         
         <!-- ActiveMQ dependencies -->
         <dependency>
 		    <groupId>org.apache.activemq</groupId>
 		    <artifactId>activemq-client</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-rar</artifactId>
+            <type>rar</type>
+        </dependency>
 		
 		<!-- Kafka dependencies -->
 		<dependency>

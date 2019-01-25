@@ -11,20 +11,20 @@
 
 		var metodosPublicos = {};
 
-		metodosPublicos.gerarObservacoes = _gerarObservacoes;
-		metodosPublicos.getCusto = _getCusto;
-		metodosPublicos.getTiposVeiculos = _getTiposVeiculos;
+		metodosPublicos.sendToKafka = _sendToKafka;
+		metodosPublicos.getFromKafka = _getFromKafka;
+		metodosPublicos.getWebSocket = _getWebSocket;
 
-		function _gerarObservacoes() {
-			return Restangular.one('faturas/observacoes').get();
+		function _sendToKafka(message) {
+			return Restangular.all('kafka/v2/send').post(message);
 		}
 
-		function _getCusto(params) {
-			return Restangular.one('custos').get(params);
+		function _getFromKafka(message) {
+			return Restangular.one('kafka/v2/consume').get();
 		}
 
-		function _getTiposVeiculos() {
-			return Restangular.all('tipos-veiculos').getList();
+		function _getWebSocket(host) {
+			return new WebSocket("ws://localhost:10004/" + host);
 		}
 
 		return metodosPublicos;

@@ -18,7 +18,7 @@ public class ActiveMQSender {
 
     private static final String QUEUE = "ActiveMQTesteQueue";
 
-    public void send() {
+    public void send(final String mensagem) {
         try {
             final Connection connection = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL).createConnection();
 
@@ -26,7 +26,7 @@ public class ActiveMQSender {
 
             final Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-            final TextMessage message = session.createTextMessage(DateTimeUtil.format(LocalDateTime.now()));
+            final TextMessage message = session.createTextMessage(mensagem + " - " + DateTimeUtil.format(LocalDateTime.now()));
 
             session.createProducer(session.createQueue(QUEUE)).send(message);
 
