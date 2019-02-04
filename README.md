@@ -1,25 +1,26 @@
-Para utilização do Kafka
+# Mensageria com ActiveMQ e Kafka
 
+**Kafka**
 
-Download do broker:
+Download do broker na versão:
 
-kafka_2.12-2.1.0
+`kafka_2.12-2.1.0`
 
 
 Iniciar o ZooKeeper:
 
-[Diretório do Kafka]/bin/zookeeper-server-start.sh config/zookeeper.properties
+[Diretório do Kafka]/bin/`zookeeper-server-start.sh config/zookeeper.properties`
 
 
 Iniciar o Kafka:
 
-[Diretório do Kafka]/bin/kafka-server-start.sh config/server.properties
+[Diretório do Kafka]/bin/`kafka-server-start.sh config/server.properties`
 
 
 Criar os tópicos no Kafka:
 
-[Diretório do Kafka]/bin/sh kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topic-kafka-v1
-[Diretório do Kafka]/bin/sh kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topic-kafka-v2
+[Diretório do Kafka]/bin/`sh kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topic-kafka-v1`
+[Diretório do Kafka]/bin/`sh kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topic-kafka-v2`
 
 
 O tópico topic-kafka-v1 será utilizado no teste de mensagem JMS consumida diretamente ao ser recebida.
@@ -28,12 +29,12 @@ O tópico topic-kafka-v2 será utilizado no teste de mensagem consumida mais de 
 
 Rodando o projeto:
 
-Executar o run.bat dos projetos mensageria-api e mensageria-mdb
+Executar o `run.bat` do projeto mensageria-api
 
 
 Enviando e consumindo mensagens:
 
-Acessar o endereço localhost:10004, em seguida:
+Acessar o endereço `localhost:10004`, em seguida:
 
 Para o topic-kafka-v1, informar uma mensagem no campo Kafka V1 e clicar em Enviar. Esta mensagem será consumida e retornada para a tela via websocket assim que o disponibilizada pelo broker.
 
@@ -41,24 +42,24 @@ Para o topic-kafka-v2, informar uma mensagem no campo Kafka V2 e clicar em Envia
 
 
 
-Para utilização do ActiveMQ
+**ActiveMQ**
 
 
-Download do broker:
+Download do broker na versão:
 
-apache-activemq-5.15.8
+`apache-activemq-5.15.8`
 
 
 Iniciar o ActiveMQ:
 
-[Diretório do ActiveMQ]/bin/activemq start
+[Diretório do ActiveMQ]/bin/`activemq start`
 
 
 Rodando o projeto:
 
-Executar o run.bat do projeto mensageria-api
+Executar o `run.bat` do projeto mensageria-api
 
 
 Enviando e consumindo mensagens:
 
-Acessar o endereço localhost:10004, informar uma mensagem no campo ActiveMQ e clicar em Enviar. Esta mensagem será consumida e retornada para a tela via websocket assim que o disponibilizada pelo broker.
+Acessar o endereço `localhost:10004`, informar uma mensagem no campo ActiveMQ e clicar em Enviar. Esta mensagem será consumida e retornada para a tela via websocket assim que o disponibilizada pelo broker.
